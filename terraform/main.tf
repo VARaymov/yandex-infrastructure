@@ -73,7 +73,7 @@ resource "yandex_compute_instance" "vm-1" {
   # здесь можно указать скрипт, который запустится при создании ВМ
   # или список SSH-ключей для доступа на ВМ
   metadata = {
-    user-data = file("${path.module}/meta.txt")
+      user-data = "${file("~/infrastructure/infrastructure/terraform/meta.txt")}"
   }
 }
 

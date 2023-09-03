@@ -14,7 +14,7 @@ variable "instance_name" {
 }
 
 variable "instance_use_nat" {
-  default = "false"
+  default = "true"
 }
 
 variable "instance_preemptible" {
@@ -48,5 +48,5 @@ variable "instance_cores" {
 variable "instance_user_data" {
   description = "Cloud-config string"
   type  = string 
-  default = "#cloud-config\nusers:\n  - name: ansible\n    gecos: Ansible User\n    groups: users,admin,sudo\n    sudo: ALL=(ALL) NOPASSWD:ALL\n    shell: /bin/bash\n    lock_passwd: true\n    ssh_authorized_keys:\n      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQChO63d9WcVkR2cgRBa/zJ0Dx+9OgDaET3a0IvB0PiXqQhgJ5JYD1yli/Ifi7Giwm5k4ej7tYPAWxtJPIoJlE5e0X7es1MRcSDfTRSO+zo0UiCKjoy3Q8POcCcTvj2WU/ooyIUHTG/JK/7SrcZmRn629Cuxpp9mTRbAp+AQhI6kB017FzvHtc/ZrSL14xe6riwuRjblSsDCWhMeflGIk7BFXgCCTWtUyvje/o6jG/XzqqKcDW44Q69qWqPZaXGe4BqWDCQ435nlYUlmMbjwVTmHuYJGZ7WJhhXMiPb0QA5SiW5xU1fzJau8AXdTggQWi/lueOQiGSDd6DKKACO0NlUq7nBIwm5zF5xCgWJ6I23KsYD0YvEJwekFRNp/wwc86+VHjEx2U/IslIVBQF8iPUD8Qtgob79Z+j49V9Ctuj07+c7/p+YZ7DL4rMv/0yPrCEZ7NCUcj12AEK0L7edJnQz1+2lmZEjMvuxTqeDOW9tUH3/vG/gTa/6v7hvZlz+d6QOk0WnXuPfvbRh1n6lHWKaLJO+N3l4xSYYbXtt3DExX7xuqwmcygHY3r/EW2KUgKfT/0/gmIuMfRPmvnLyPKazM5mMenJnZKrIdCbO3Fm1Sbxs87iSAiCIYvaXbEmvzE9IKQWIfM2wLnVfHWlxqjRXJYGJJ4PL3xHWVPtuKbLlwRQ== student@fhmmr6vsrjf00j6d13ne" 
+  default = "#cloud-config\nusers:\n  - name: student\n    gecos: Ansible User\n    groups: users,admin,sudo\n    sudo: ALL=(ALL) NOPASSWD:ALL\n    shell: /bin/bash\n    lock_passwd: true\n    ssh_authorized_keys:\n      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQChO63d9WcVkR2cgRBa/zJ0Dx+9OgDaET3a0IvB0PiXqQhgJ5JYD1yli/Ifi7Giwm5k4ej7tYPAWxtJPIoJlE5e0X7es1MRcSDfTRSO+zo0UiCKjoy3Q8POcCcTvj2WU/ooyIUHTG/JK/7SrcZmRn629Cuxpp9mTRbAp+AQhI6kB017FzvHtc/ZrSL14xe6riwuRjblSsDCWhMeflGIk7BFXgCCTWtUyvje/o6jG/XzqqKcDW44Q69qWqPZaXGe4BqWDCQ435nlYUlmMbjwVTmHuYJGZ7WJhhXMiPb0QA5SiW5xU1fzJau8AXdTggQWi/lueOQiGSDd6DKKACO0NlUq7nBIwm5zF5xCgWJ6I23KsYD0YvEJwekFRNp/wwc86+VHjEx2U/IslIVBQF8iPUD8Qtgob79Z+j49V9Ctuj07+c7/p+YZ7DL4rMv/0yPrCEZ7NCUcj12AEK0L7edJnQz1+2lmZEjMvuxTqeDOW9tUH3/vG/gTa/6v7hvZlz+d6QOk0WnXuPfvbRh1n6lHWKaLJO+N3l4xSYYbXtt3DExX7xuqwmcygHY3r/EW2KUgKfT/0/gmIuMfRPmvnLyPKazM5mMenJnZKrIdCbO3Fm1Sbxs87iSAiCIYvaXbEmvzE9IKQWIfM2wLnVfHWlxqjRXJYGJJ4PL3xHWVPtuKbLlwRQ== student@fhmmr6vsrjf00j6d13ne" 
 }

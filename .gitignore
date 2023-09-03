@@ -5,3 +5,4 @@
 *.tfvars
 *.tfplan
 *.tfout
+./ansible/pass.txt

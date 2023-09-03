@@ -1,0 +1,68 @@
+
+- name: Download nodejs installation script
+  get_url:
+    url: https://deb.nodesource.com/setup_14.x
+    mode: 0755
+    dest: /tmp
+  register: download
+
+- name: Execute setup_14.x script
+  command: /tmp/setup_14.x
+  when: download.changed
+  become: true
+
+- name: Install nodejs
+  apt:
+    name: nodejs
+    update_cache: true
+  become: true
+
+- name: Install http-server
+  npm:
+    name: http-server
+    global: true
+  become: true
+
+- name: Create service user
+  user:
+    name: "{{ frontend_user }}"
+    create_home: false
+    shell: /sbin/nologin
+  become: true
+
+- name: Create directory
+  file:
+    path: "{{ frontend_path }}"
+    state: directory
+    owner: "{{ frontend_user }}"
+    group: "{{ frontend_user }}"
+    mode: 0755
+  become: true
+
+- name: Download an artifact from Nexus
+  get_url:
+    url: "{{ nexus_frontend_url }}sausage-store-front/sausage-store/{{ frontend_version }}/sausage-store-{{ frontend_version }}.tar.gz"
+    dest: "/tmp/sausage-store-frontend.tar.gz"
+    username: "{{ nexus_login }}"
+    password: "{{ nexus_pass }}"
+  notify: "restart frontend"
+  delay: 10
+  retries: 3
+
+- name: Extract archive
+  unarchive:
+    src: "/tmp/sausage-store-frontend.tar.gz"
+    dest: "{{ frontend_path }}"
+    owner: "{{ frontend_user }}"
+    group: "{{ frontend_user }}"
+    remote_src: true
+  become: true
+
+- name: Create sausage-store-frontend.service
+  template:
+    src: "./templates/sausage-store-frontend.service.j2"
+    dest: /etc/systemd/system/sausage-store-frontend.service
+  become: true
+  notify:
+    - "reload config"
+    - "restart frontend"

@@ -1,0 +1,46 @@
+- name: Install java
+  apt:
+    pkg:
+      - "{{ java_apt_package }}"
+    state: present
+    update_cache: true
+  become: true
+
+- name: Create service user
+  user:
+    name: "{{ backend_user }}"
+    create_home: no
+    shell: /sbin/nologin
+  become: true
+
+- name: Create backend directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ backend_user }}"
+    group: "{{ backend_user }}"
+    mode: 0744
+  loop:
+    - "{{ backend_path }}"
+    - "{{ backend_log_path }}"
+  become: true
+
+- name: Download an artifact from Nexus
+  get_url:
+    url: "{{ nexus_backend_url }}com/yandex/practicum/devops/sausage-store/{{ backend_version }}/sausage-store-{{ backend_version }}.jar"
+    dest: "{{ backend_path }}/sausage-store.jar"
+    username: "{{ nexus_login }}"
+    password: "{{ nexus_pass }}"
+  become: true
+  notify: "restart backend"
+  retries: 3
+  delay: 10
+
+- name: Create sausage-store-backend.service
+  template:
+    src: "./templates/sausage-store-backend.service.j2"
+    dest: /etc/systemd/system/sausage-store-backend.service
+  become: true
+  notify:
+    - "reload config"
+    - "restart backend"

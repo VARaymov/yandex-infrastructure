@@ -1,0 +1,8 @@
+all:
+  children:
+    backend:
+      hosts:
+        158.160.109.7:
+    frontend:
+      hosts:
+        158.160.109.7:

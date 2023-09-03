@@ -1,0 +1,12 @@
+- name: Reload systemd configuration
+  systemd:
+    daemon_reload: yes
+  become: true
+  listen: "reload config"
+
+- name: Restart frontend
+  service:
+    name: sausage-store-frontend
+    state: restarted
+  become: true
+  listen: "restart frontend"

@@ -1,0 +1,16 @@
+[Unit]
+Description=sausage-store frontend
+
+[Service]
+User={{ frontend_user }}
+Group={{ frontend_user }}
+Restart=always
+Environment="LOG_PATH={{ frontend_log_path }}"
+ExecStart=http-server {{ frontend_path }}/dist/frontend -p 3000 --proxy http://127.0.0.1:8080
+
+SuccessExitStatus=143
+StandardOutput=append:{{ frontend_log_path }}/out-front.log
+StandardError=append:{{ frontend_log_path }}/out-front.log
+
+[Install]
+WantedBy=multi-user.target

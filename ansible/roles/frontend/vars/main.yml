@@ -1,0 +1,5 @@
+frontend_path: "/var/www-data"
+frontend_user: "www-data"
+frontend_log_path: "/opt/log"
+nexus_frontend_url: "https://nexus.k8s.praktikum-services.tech/repository/sausage-store-rayumov-valery-frontend/"
+frontend_version: "1.0.763537"

@@ -1,0 +1,5 @@
+backend_path: "/var/jarservice"
+backend_user: "jarservice"
+backend_log_path: "/opt/log"
+nexus_backend_url: "https://nexus.k8s.praktikum-services.tech/repository/sausage-store-rayumov-valery-backend/"
+backend_version: "1.0.763538"

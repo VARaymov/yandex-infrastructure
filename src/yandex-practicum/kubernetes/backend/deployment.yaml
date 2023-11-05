@@ -36,6 +36,11 @@ spec:
             secretKeyRef:
               name: vault
               key: vault_host
+        - name: SPRING_DATA_MONGODB_URI
+          valueFrom:
+            secretKeyRef:
+              name: db
+              key: mongo-url
       ports:
         - name: backend
           containerPort: 8080
@@ -53,4 +58,3 @@ spec:
         name: nginx-config-backend
   imagePullSecrets:
     - name: docker-config-secret
-

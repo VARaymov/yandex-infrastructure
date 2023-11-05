@@ -8,9 +8,9 @@ deploy:
     - mkdir ~/.kube
     - echo $KUBECONFIG_BASE64 | base64 -d > config
     - mv config ~/.kube/config
-    - cd src/yandex-practicum/kubernetes/backend && kubectl apply -f secrets.yml && kubectl apply -f .
-    - cd ../backend-report && kubectl apply -f secrets.yml && kubectl apply -f .
-    - cd ../frontend && kubectl apply -f secrets.yml && kubectl apply -f .
+    - cd src/yandex-practicum/kubernetes/backend && kubectl apply -f secrets.yaml && kubectl apply -f .
+    - cd ../backend-report && kubectl apply -f secrets.yaml && kubectl apply -f .
+    - cd ../frontend && kubectl apply -f secrets.yaml && kubectl apply -f .
     - cd ../ingress && kubectl apply -f .
     - rm -f ~/.kube/config
   only:

@@ -6,7 +6,7 @@ deploy:
   image: lachlanevenson/k8s-kubectl:latest
   script:
     - mkdir ~/.kube
-    - echo $KUBECONFIG | base64 -d > config
+    - echo $KUBECONFIG_BASE64 | base64 -d > config
     - mv config ~/.kube/config
     - cd src/yandex-practicum/kubernetes/backend
     - kubectl apply -f .

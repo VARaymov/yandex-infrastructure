@@ -3,6 +3,7 @@ stages:
 
 deploy:
   stage: deploy
+  image: lachlanevenson/k8s-kubectl:latest
   script:
     - mkdir ~/.kube
     - echo $KUBECONFIG > ~/.kube/config

@@ -11,27 +11,37 @@ spec:
       name: backend
       imagePullPolicy: Always
       env:
-        - name: VAULT_HOST
-          value: http://std-019-02.praktikum-services.tech:8200/
         - name: VAULT_TOKEN
           valueFrom:
             secretKeyRef:
               name: vault
               key: vault_token
         - name: SPRING_DATASOURCE_URL
-          value: jdbc:postgresql://rc1b-icp7peq6wmkoc2lh.mdb.yandexcloud.net:6432/std-019-002
+          valueFrom:
+            secretKeyRef:
+              name: db
+              key: url
         - name: SPRING_DATASOURCE_USERNAME
-          value: std-019-002
+          valueFrom:
+            secretKeyRef:
+              name: db
+              key: username
         - name: SPRING_DATASOURCE_PASSWORD
-          value: Testusr1234
-        - name: SPRING_DATA_MONGODB_URI
-          value: mongodb://std-019-002:Devops1234@rc1a-rrqktmg8jja7h488.mdb.yandexcloud.net:27018/std-019-002?tls=true
+          valueFrom:
+            secretKeyRef:
+              name: db
+              key: password
+        - name: VAULT_HOST
+          valueFrom:
+            secretKeyRef:
+              name: vault
+              key: vault_host
       ports:
         - name: backend
           containerPort: 8080
       livenessProbe:      
         httpGet:          
-          path: /actuator/health       
+          path: /actuator/health      
           port: 8080          
         initialDelaySeconds: 15
         periodSeconds: 30
@@ -40,7 +50,7 @@ spec:
   volumes:
     - name: nginx-config-volume
       configMap:
-        name: nginx-config
+        name: nginx-config-backend
   imagePullSecrets:
     - name: docker-config-secret
 

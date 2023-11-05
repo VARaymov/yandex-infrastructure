@@ -18,10 +18,11 @@ spec:
             secretKeyRef:
               name: vault
               key: vault_token
-        - name: REPORTS_MONGODB_URI
-          value: mongodb://std-019-002:Devops1234@rc1a-rrqktmg8jja7h488.mdb.yandexcloud.net:27018/std-019-002?tls=true
         - name: DB
-          value: mongodb://std-019-002:Devops1234@rc1a-rrqktmg8jja7h488.mdb.yandexcloud.net:27018/std-019-002?tls=true
+          valueFrom:
+            secretKeyRef:
+              name: db
+              key: backend-report-db-uri
       ports:
         - name: backend
           containerPort: 8081

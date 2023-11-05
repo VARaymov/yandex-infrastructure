@@ -6,7 +6,7 @@ deploy:
   image: lachlanevenson/k8s-kubectl:latest
   script:
     - mkdir ~/.kube
-    - echo $KUBECONFIG > ~/.kube/config
+    - echo $KUBECONFIG_FILE > ~/.kube/config
     - cat ~/.kube/config
     - cd src/yandex-practicum/kubernetes/backend && kubectl apply -f .
     - cd ../backend-report && kubectl apply -f .

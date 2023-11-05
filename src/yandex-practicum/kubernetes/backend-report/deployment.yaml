@@ -24,7 +24,7 @@ spec:
         - name: DB
           valueFrom:
             secretKeyRef:
-              name: db
+              name: db-backend-report
               key: backend-report-db-uri
       ports:
         - name: backend

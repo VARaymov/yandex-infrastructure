@@ -6,17 +6,7 @@ deploy:
   script:
     - mkdir ~/.kube
     - echo $KUBECONFIG > ~/.kube/config
-    - pwd
-    - ls -la
-    - cd src
-    - ls -la
-    - cd yandex-practicum
-    - ls -la
-    - cd kubernetes
-    - ls -la
-    - cd backend 
-    - ls -la
-    - cd /src/yandex-practicum/kubernetes/backend && kubectl apply -f .
+    - cd src/yandex-practicum/kubernetes/backend && kubectl apply -f .
     - cd ../backend-report && kubectl apply -f .
     - cd ../frontend && kubectl apply -f .
     - cd ../ingress && kubectl apply -f .

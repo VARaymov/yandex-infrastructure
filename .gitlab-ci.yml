@@ -3,8 +3,9 @@ stages:
 
 deploy:
   stage: deploy
+  before_script:
+    - export KUBECONFIG=$KUBECONFIG_FILE
   script:
-    - echo $KUBECONFIG > $HOME/.kube/config
     - cd src/yandex/practicum/kubernetes/backend && kubectl apply -f .
     - cd ../backend-report && kubectl apply -f .
     - cd ../frontend && kubectl apply -f .

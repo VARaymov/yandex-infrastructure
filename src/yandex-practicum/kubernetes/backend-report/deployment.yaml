@@ -1,0 +1,30 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: backend-report
+  labels:
+    app: backend-report
+spec:
+  containers:
+    - image: gitlab.praktikum-services.ru:5050/std-019-002/sausage-store/sausage-backend-report:latest
+      name: backend-report
+      imagePullPolicy: Always
+      env:
+        - name: VAULT_HOST
+          value: http://std-019-02.praktikum-services.tech:8200/
+        - name: VAULT_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: vault
+              key: vault_token
+        - name: REPORTS_MONGODB_URI
+          value: mongodb://std-019-002:Devops1234@rc1a-rrqktmg8jja7h488.mdb.yandexcloud.net:27018/std-019-002?tls=true
+        - name: DB
+          value: mongodb://std-019-002:Devops1234@rc1a-rrqktmg8jja7h488.mdb.yandexcloud.net:27018/std-019-002?tls=true
+      ports:
+        - name: backend
+          containerPort: 8081
+  imagePullSecrets:
+    - name: docker-config-secret
+

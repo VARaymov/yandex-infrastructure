@@ -8,7 +8,7 @@ deploy:
     - echo $KUBECONFIG > ~/.kube/config
     - pwd
     - ls -la
-    - cd /src/yandex/practicum/kubernetes/backend && kubectl apply -f .
+    - cd /src/yandex-practicum/kubernetes/backend && kubectl apply -f .
     - cd ../backend-report && kubectl apply -f .
     - cd ../frontend && kubectl apply -f .
     - cd ../ingress && kubectl apply -f .

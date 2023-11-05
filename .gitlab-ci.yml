@@ -4,6 +4,7 @@ stages:
 deploy:
   stage: deploy
   script:
+    - mkdir ~/.kube
     - echo $KUBECONFIG > ~/.kube/config
     - cd src/yandex/practicum/kubernetes/backend && kubectl apply -f .
     - cd ../backend-report && kubectl apply -f .

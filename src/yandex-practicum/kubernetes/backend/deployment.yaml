@@ -1,8 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend-deployment
+  name: backend
 spec:
+  revisionHistoryLimit: 15
   replicas: 2  # Количество реплик вашего приложения
   selector:
     matchLabels:

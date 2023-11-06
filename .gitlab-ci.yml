@@ -17,5 +17,5 @@ deploy:
     changes:
       - src/yandex-practicum/kubernetes/**/* 
   environment:
-    name: sausage-store-url # Замените на свое имя
+    name: sausage-store-url
     url: https://rayumov-valery-19.k8s.praktikum-services.tech 

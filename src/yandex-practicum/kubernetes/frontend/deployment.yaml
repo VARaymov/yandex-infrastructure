@@ -1,28 +1,49 @@
-apiVersion: v1
-kind: Pod
+---
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: frontend
   labels:
     app: frontend
 spec:
-  containers:
-    - image: gitlab.praktikum-services.ru:5050/std-019-002/sausage-store/sausage-frontend-nginx:latest
-      name: frontend
-      imagePullPolicy: Always
-      ports:
+  revisionHistoryLimit: 15
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - frontend
+    spec:
+      containers:
         - name: frontend
-          containerPort: 80
-      volumeMounts:
+          image: gitlab.praktikum-services.ru:5050/std-019-002/sausage-store/sausage-frontend-nginx:latest
+          imagePullPolicy: Always
+          ports:
+            - name: frontend
+              containerPort: 80
+          volumeMounts:
+            - name: nginx-config-volume
+              mountPath: /etc/nginx/conf.d
+            - name: docker-socket
+              mountPath: /tmp/docker.sock
+      volumes:
         - name: nginx-config-volume
-          mountPath: /etc/nginx/conf.d
+          configMap:
+            name: nginx-config-frontend
         - name: docker-socket
-          mountPath: /tmp/docker.sock
-  volumes:
-    - name: nginx-config-volume
-      configMap:
-        name: nginx-config-frontend
-    - name: docker-socket
-      hostPath:
-        path: /var/run/docker.sock
-  imagePullSecrets:
-    - name: docker-config-secret
+          hostPath:
+            path: /var/run/docker.sock
+      imagePullSecrets:
+        - name: docker-config-secret

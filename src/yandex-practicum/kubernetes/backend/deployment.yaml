@@ -4,7 +4,12 @@ metadata:
   name: backend
 spec:
   revisionHistoryLimit: 15
-  replicas: 2  # Количество реплик вашего приложения
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1 # Определение максимального недопустимого количества Pod
+      maxSurge: 20% # Максимальное количество Pod сверх лимита
   selector:
     matchLabels:
       app: backend

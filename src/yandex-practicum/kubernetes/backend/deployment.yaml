@@ -1,0 +1,60 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: backend
+  labels:
+    app: backend
+spec:
+  containers:
+    - image: gitlab.praktikum-services.ru:5050/std-019-002/sausage-store/sausage-backend:latest
+      name: backend
+      imagePullPolicy: Always
+      env:
+        - name: VAULT_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: vault
+              key: vault_token
+        - name: SPRING_DATASOURCE_URL
+          valueFrom:
+            secretKeyRef:
+              name: db
+              key: url
+        - name: SPRING_DATASOURCE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: db
+              key: username
+        - name: SPRING_DATASOURCE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db
+              key: password
+        - name: VAULT_HOST
+          valueFrom:
+            secretKeyRef:
+              name: vault
+              key: vault_host
+        - name: SPRING_DATA_MONGODB_URI
+          valueFrom:
+            secretKeyRef:
+              name: db
+              key: mongo-url
+      ports:
+        - name: backend
+          containerPort: 8080
+      livenessProbe:      
+        httpGet:          
+          path: /actuator/health      
+          port: 8080          
+        initialDelaySeconds: 15
+        periodSeconds: 30
+        timeoutSeconds: 2
+        failureThreshold: 6
+  volumes:
+    - name: nginx-config-volume
+      configMap:
+        name: nginx-config-backend
+  imagePullSecrets:
+    - name: docker-config-secret

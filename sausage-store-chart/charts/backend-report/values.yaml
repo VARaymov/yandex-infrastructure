@@ -1,0 +1,12 @@
+image: gitlab.praktikum-services.ru:5050/std-019-002/sausage-store/sausage-backend-report:latest
+replicas: 1
+revisionHistoryLimit: 15
+imagePullPolicy: Always
+containerPort: 8081
+vault_token: aHZzLjBTR1hDcTQxYUlhV3hRSGl0ekFHM3FHTAo=
+vault_host: aHR0cDovL3N0ZC0wMTktMDIucHJha3Rpa3VtLXNlcnZpY2VzLnRlY2g6ODIwMC8=
+dockerconfigjson: ewoJImF1dGhzIjogewoJCSJnaXRsYWIucHJha3Rpa3VtLXNlcnZpY2VzLnJ1OjUwNTAiOiB7CgkJCSJhdXRoIjogImMzUmtMVEF4T1Mwd01ESTZWak5pTkRsdE5sZz0iCgkJfQoJfQp9
+backend_report_db_uri: bW9uZ29kYjovL3N0ZC0wMTktMDAyOkRldm9wczEyMzRAcmMxYS1ycnFrdG1nOGpqYTdoNDg4Lm1kYi55YW5kZXhjbG91ZC5uZXQ6MjcwMTgvc3RkLTAxOS0wMDI/dGxzPXRydWUK
+minReplicas: 1
+maxReplicas: 5
+averageUtilization: 75

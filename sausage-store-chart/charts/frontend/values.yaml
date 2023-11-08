@@ -1,0 +1,11 @@
+image: gitlab.praktikum-services.ru:5050/std-019-002/sausage-store/sausage-frontend-nginx:latest
+replicas: 1
+revisionHistoryLimit: 15
+imagePullPolicy: Always
+containerPort: 8081
+port: 80
+targetPort: 80
+vault_token: aHZzLjBTR1hDcTQxYUlhV3hRSGl0ekFHM3FHTAo=
+vault_host: aHR0cDovL3N0ZC0wMTktMDIucHJha3Rpa3VtLXNlcnZpY2VzLnRlY2g6ODIwMC8=
+dockerconfigjson: ewoJImF1dGhzIjogewoJCSJnaXRsYWIucHJha3Rpa3VtLXNlcnZpY2VzLnJ1OjUwNTAiOiB7CgkJCSJhdXRoIjogImMzUmtMVEF4T1Mwd01ESTZWak5pTkRsdE5sZz0iCgkJfQoJfQp9
+ingressHost: rayumov-valery-19.k8s.praktikum-services.tech

@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-report
+  labels:
+    app.kubernetes.io/version: "{{ .Chart.AppVersion }}"
+spec:
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+      app: backend-report
+  template:
+    metadata:
+      labels:
+        app: backend-report
+    spec:
+      containers:
+        - name: backend-report
+          image: {{ .Values.image }}
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          env:
+            - name: VAULT_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: vault
+                  key: vault_host
+            - name: VAULT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: vault
+                  key: vault_token
+            - name: DB
+              valueFrom:
+                secretKeyRef:
+                  name: db-backend-report
+                  key: backend-report-db-uri
+          ports:
+            - name: backend
+              containerPort: {{ .Values.containerPort }}
+      imagePullSecrets:
+          - name: docker-config-secret

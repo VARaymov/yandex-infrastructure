@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  labels:
+    app.kubernetes.io/version: "{{ .Chart.AppVersion }}"
+spec:
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
+  replicas: {{ .Values.replicas }}
+  strategy:
+    type: {{ .Values.deployStrategyType }}
+    rollingUpdate:
+      maxUnavailable: {{ .Values.maxUnavailable }}
+      maxSurge: {{ .Values.maxSurge }}
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: {{ .Values.image }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        env:
+        - name: VAULT_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: vault
+              key: vault_token
+        - name: SPRING_DATASOURCE_URL
+          valueFrom:
+            secretKeyRef:
+              name: db
+              key: url
+        - name: SPRING_DATASOURCE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: db
+              key: username
+        - name: SPRING_DATASOURCE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db
+              key: password
+        - name: VAULT_HOST
+          valueFrom:
+            secretKeyRef:
+              name: vault
+              key: vault_host
+        - name: SPRING_DATA_MONGODB_URI
+          valueFrom:
+            secretKeyRef:
+              name: db
+              key: mongo_url
+        ports:
+        - name: backend
+          containerPort: {{ .Values.containerPort }}
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: {{ .Values.containerPort }}
+          initialDelaySeconds: 15
+          periodSeconds: 30
+          timeoutSeconds: 2
+          failureThreshold: 6
+      volumes:
+      - name: nginx-config-volume
+        configMap:
+          name: nginx-config-backend
+      imagePullSecrets:
+      - name: docker-config-secret

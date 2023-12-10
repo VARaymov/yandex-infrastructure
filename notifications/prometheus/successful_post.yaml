@@ -1,0 +1,10 @@
+groups:
+- name: successful_post
+  rules:
+  - alert: HighPOSTRequestDelay
+    expr: histogram_quantile(0.95, rate(http_server_requests_seconds_bucket{method="POST", status="200", uri="/api/orders"}[5m])) > 0.1
+    for: 5m
+    labels:
+      severity: critical
+    annotations:
+      summary: "High delay for successful POST requests"

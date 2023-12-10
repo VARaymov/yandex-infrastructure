@@ -1,0 +1,10 @@
+groups:
+- name: prometheus_endpoint
+  rules:
+  - alert: PrometheusEndpointError
+    expr: http_server_requests_seconds{uri="/actuator/prometheus"} > 0 and http_server_requests_seconds{status!="200", uri="/actuator/prometheus"} > 0
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Error detected in /actuator/prometheus endpoint"

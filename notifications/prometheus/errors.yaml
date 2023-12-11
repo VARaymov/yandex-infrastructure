@@ -1,0 +1,10 @@
+groups:
+- name: errors
+  rules:
+  - alert: HTTP500Error
+    expr: http_server_requests_seconds{status="500"} > 0
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: "HTTP 500 Error detected"
